@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Car Price Predictor 🚘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #00ffcc;
+        }
+        form {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0 0 20px #00ffcc;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #00ccaa;
+        }
+        .prediction {
+            margin-top: 30px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #00ffcc;
+            text-align: center;
+            background-color: #1e1e1e;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00ffcc;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price My Car 🔮</h1>
+
+    <form action="/predict" method="post">
+        <label for="company">🏢 Company:</label>
+        <select name="company" id="company" required>
+            {% for company in companies %}
+            <option value="{{ company }}">{{ company }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="car_models">🚘 Model:</label>
+        <select name="car_models" id="car_models" required>
+            {% for model in car_models %}
+            <option value="{{ model }}">{{ model }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="year">📅 Year:</label>
+        <select name="year" id="year" required>
+            {% for y in years %}
+            <option value="{{ y }}">{{ y }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="fuel_type">⛽ Fuel Type:</label>
+        <select name="fuel_type" id="fuel_type" required>
+            {% for fuel in fuel_types %}
+            <option value="{{ fuel }}">{{ fuel }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="kilo_driven">🛣️ Kilometers Driven:</label>
+        <input type="text" name="kilo_driven" id="kilo_driven" required pattern="\d+" title="Please enter a valid number" />
+
+        <input type="submit" value="🔍 Predict Price" />
+    </form>
+
+    {% if prediction_text %}
+    <div class="prediction">
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+</body>
+</html>
+
+
